@@ -1,0 +1,9 @@
+/* Arabic (RTL) overrides that logical properties cannot express. Loaded after bootstrap.rtl.min.css. */
+[dir="rtl"] body { letter-spacing: 0; }
+[dir="rtl"] .co-name, [dir="rtl"] .co-metric, [dir="rtl"] .hero__title, [dir="rtl"] .auth__title { letter-spacing: 0; }
+[dir="rtl"] .app-rail__label { transform: translateY(-50%); }
+[dir="rtl"] .co-progress > span { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.32) 0 4px, transparent 4px 9px); }
+[dir="rtl"] .app-msg { border-radius: 16px 16px 6px 16px; }
+[dir="rtl"] .app-msg--mine { border-radius: 16px 16px 16px 6px; }
+/* Dates and IDs written in Latin script keep their own order inside Arabic text */
+[dir="rtl"] .co-table td.num, [dir="rtl"] .co-progress-meta span:last-child { unicode-bidi: plaintext; }

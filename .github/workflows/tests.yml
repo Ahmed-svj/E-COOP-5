@@ -1,0 +1,50 @@
+# Runs the real PHP + MySQL site and the browser tests on every push.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0.40
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -proot" --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, mbstring, fileinfo
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Database
+        run: |
+          printf '[client]\nuser=root\npassword=root\nhost=127.0.0.1\n' > ~/.my.cnf
+          mysql < database/schema.sql
+          mysql -e "CREATE USER IF NOT EXISTS 'coop_app'@'%' IDENTIFIED BY 'ChangeThisStrongPassword!'; GRANT SELECT, INSERT, UPDATE, DELETE ON coop_db.* TO 'coop_app'@'%';"
+          cp .env.example .env
+          php database/seed.php
+      - name: Start site
+        run: php -S 127.0.0.1:8080 -t public public/index.php > storage/logs/server.log 2>&1 &
+      - name: Browser tests
+        run: |
+          npm install --no-save playwright@1.49.1
+          npx playwright install --with-deps chromium
+          node tests/e2e-pages.js
+          node tests/e2e-avatar-lang.js
+          node tests/e2e-settings.js
+          node tests/e2e-links.js
+          node tests/e2e-attendance-change.js
+          node tests/e2e-register-supervisor.js
+          node tests/preview-buttons.js
+          mysql < database/schema.sql && php database/seed.php > /dev/null
+          node tests/e2e-flow.js

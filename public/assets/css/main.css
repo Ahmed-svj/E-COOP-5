@@ -1,0 +1,100 @@
+/* COOP — tokens from the COOP Design System (tokens.json). Do not edit values here without updating the system. */
+:root, [data-theme="light"] {
+  --canvas: #e9ecef;
+  --shell: #f1f2f4;
+  --surface: #ffffff;
+  --surface-sunken: #f4f5f7;
+  --line: #e4e7eb;
+  --ink: #15171c;
+  --ink-muted: #646b76;
+  --ink-subtle: #8b929c;
+  --mint: #5ad6b4;
+  --mint-soft: #d5f6ec;
+  --mint-ink: #0b6b52;
+  --lavender: #b8a5f4;
+  --lavender-soft: #ece7fd;
+  --lavender-ink: #5a3fc0;
+  --amber-soft: #fdf1d8;
+  --amber-ink: #8a5a00;
+  --red-soft: #fde4e2;
+  --red-ink: #b42318;
+  --danger: #b42318;
+  --on-accent: #10241e;
+  --on-danger: #ffffff;
+  --focus-ring: #6a4fd6;
+  --shadow-card: 0 1px 2px rgba(16,24,40,0.04), 0 8px 24px rgba(16,24,40,0.06);
+  --shadow-shell: 0 30px 80px rgba(16,24,40,0.14);
+  --shadow-pin: 0 4px 14px rgba(16,24,40,0.12);
+}
+[data-theme="dark"] {
+  --canvas: #0b0d10;
+  --shell: #15181c;
+  --surface: #1c2026;
+  --surface-sunken: #232830;
+  --line: #2c323b;
+  --ink: #eef0f3;
+  --ink-muted: #9aa3ae;
+  --ink-subtle: #6b7480;
+  --mint: #5ad6b4;
+  --mint-soft: #173a31;
+  --mint-ink: #7ee6c9;
+  --lavender: #b8a5f4;
+  --lavender-soft: #2b2545;
+  --lavender-ink: #c9baff;
+  --amber-soft: #3a2f12;
+  --amber-ink: #f4c46a;
+  --red-soft: #3d1d1f;
+  --red-ink: #ff9b95;
+  --danger: #c4372d;
+  --on-accent: #10241e;
+  --on-danger: #ffffff;
+  --focus-ring: #c9baff;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-shell: 0 30px 80px rgba(0,0,0,0.5);
+  --shadow-pin: 0 4px 14px rgba(0,0,0,0.5);
+  color-scheme: dark;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --font-sans: "Plus Jakarta Sans", "IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* Bootstrap mapped onto the tokens */
+:root, [data-theme] {
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-bg: var(--shell);
+  --bs-body-color: var(--ink);
+  --bs-secondary-color: var(--ink-muted);
+  --bs-border-color: var(--line);
+  --bs-border-radius: var(--radius-md);
+  --bs-link-color: var(--lavender-ink);
+  --bs-link-hover-color: var(--lavender-ink);
+  --bs-link-color-rgb: 90, 63, 192;
+  --bs-emphasis-color: var(--ink);
+  --bs-tertiary-bg: var(--surface-sunken);
+}
+[data-theme="dark"] { --bs-link-color-rgb: 201, 186, 255; }
+html[lang="ar"] { --font-sans: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, sans-serif; }
+
+body { font-family: var(--font-sans); background: var(--shell); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 22px; }
+a { color: var(--lavender-ink); text-underline-offset: 3px; }
+a:hover { color: var(--lavender-ink); }
+h1, h2, h3 { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.skip-link { position: absolute; inset-inline-start: 8px; top: -60px; z-index: 2000; padding: 8px 16px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); }
+.skip-link:focus { top: 8px; color: var(--surface); }
+.visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

@@ -1,4 +1,10 @@
-.DS_Store
-Thumbs.db
-*.log
+.env
+vendor/
+storage/uploads/*/*
+!storage/uploads/*/.gitkeep
+storage/logs/*
+!storage/logs/.gitkeep
+storage/backups/*
+!storage/backups/.gitkeep
+coop-website.zip
 node_modules/
