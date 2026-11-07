@@ -27,6 +27,7 @@ const submit = async (pg, selector) => Promise.all([pg.waitForNavigation(), pg.c
 
   // 1. Register a new student (institutional email enforced) with an XSS attempt in the name
   let st = await session(browser);
+  let alerted = false; st.on('dialog', (d) => { if (d.type() === 'alert') alerted = true; });
   await st.goto(B + '/register/student');
   await st.fill('#full_name', 'Test <script>alert(1)</script> Student');
   await st.fill('#email', 'tester@gmail.com');
@@ -38,7 +39,8 @@ const submit = async (pg, selector) => Promise.all([pg.waitForNavigation(), pg.c
   await st.fill('#email', 'tester@jic.edu.sa');
   await submit(st, 'main button[type=submit]');
   ok(st.url().endsWith('/student/profile'), 'student registered and sent to profile');
-  ok(!(await st.content()).includes('<script>alert(1)</script>'), 'XSS in name is escaped');
+  const raw = await (await st.context().request.get(B + '/student/profile')).text();
+  ok(!raw.includes('<script>alert(1)</script>') && raw.includes('&lt;script&gt;alert(1)&lt;/script&gt;') && !alerted, 'XSS in name is escaped (server HTML) and never runs');
 
   // 2. Upload a fake .pdf (exe bytes) -> rejected; real PDF -> accepted
   await st.fill('#gpa', '4.5');
